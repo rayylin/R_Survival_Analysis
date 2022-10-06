@@ -1,0 +1,30 @@
+library(survival) 
+ library(readxl) 
+ 
+
+sdata <- read_excel("memberdata.xlsx") 
+View(data) 
+ 
+#  KM survival curve for all data.  
+fit.all<-survfit(Surv(event_time,event_type==1)~1,data=sdata) 
+plot(fit.all) 
+plot(fit.all,ylim=c(0.5, 1), col=3) # make plot more readable 
+ 
+# analyze KM survivals by credit and add color and legend to make the chart more readable. 
+# by default the largest value of event variable is assumed as event and no need to specify.  
+fit.credit<-survfit(Surv(event_time,event_type)~good_credit,data=sdata) 
+plot(fit.credit) 
+plot(fit.credit,col=2:4, lty=1:3, ylim=c(.4,1), main="Survival Rate by Credit Status") 
+llabel<-gsub("x=","",names(fit.credit$strata)) 
+legend("bottom",legend=llabel,col=2:4,lty=1:3,bty='n') 
+survdiff(Surv(event_time,event_type==1) ~ good_credit, data = sdata, na.action = na.omit, rho =0) 
+ 
+# analyze KM survivals by rate plan and add color and legend to make the chart more readable; 
+# use survdiff() function and argument rho = 0 to perform the log-rank or Mantel-Haenszel test for  
+# significant differences among survival distributions by a variable,  
+# rho = 1 returns the Peto and Peto modification of the Gehan-Wilcoxon test. Mantel-Haenszel test. 
+fit.rate<-survfit(Surv(event_time,event_type==1)~rate_plan,data=sdata) 
+plot(fit.rate,col=2:4, lty=1:3, ylim=c(.4,1), main="Active Rate by Rate Plan") 
+llabel<-gsub("x=","",names(fit.rate$strata)) 
+legend("bottom",legend=llabel,col=2:4,lty=1:3,bty='n') 
+survdiff(Surv(event_time,event_type==1) ~ rate_plan, data = sdata, na.action = na.omit, rho =0) 
