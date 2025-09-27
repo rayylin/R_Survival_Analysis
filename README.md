@@ -1,5 +1,5 @@
 # R_Survival_Analysis
-Survival analysis analyzes the expected duration of time until one event occurs. In this case, we try to identify the factors that would make customers stop subscribing to a service. Businesses could adjust their marketing strategy based on the result.
+Survival analysis analyzes the expected duration of time until one event occurs. In this project, we try to identify the factors that would make customers stop subscribing to a service. Businesses could adjust their marketing strategy based on the result.
 
 Nowadays a lot of businesses rely on the Subscription business model, so it is important to understand why people would stop subscribing to the service. To achieve this goal, we use R to conduct a survival analysis. 
 
